@@ -3,4 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  has_many :items, class_name: 'UserItem'
+  has_many :folders, class_name: 'UserFolder'
+  has_many :files, class_name: 'UserFile'
 end

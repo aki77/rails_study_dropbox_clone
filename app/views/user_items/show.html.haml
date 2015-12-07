@@ -1,0 +1,17 @@
+%h1 DropboxClone
+
+%ul.nav
+  %li アップロード
+
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th 更新
+      %th 共有中のユーザ
+  %tbody
+    - @items.each do |item|
+      %tr
+        %td= item.name
+        %td= item.updated_at
+        %td &nbsp;
