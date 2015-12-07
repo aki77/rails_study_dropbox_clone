@@ -1,0 +1,5 @@
+- if signed_in?
+  %li= link_to 'hoge', root_path
+- else
+  %li= link_to 'ログイン', new_user_session_path
+  %li= link_to 'ユーザ登録', new_user_registration_path

@@ -8,7 +8,6 @@ Bundler.require(*Rails.groups)
 
 module DropboxClone
   class Application < Rails::Application
-    
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
@@ -17,7 +16,7 @@ module DropboxClone
       g.orm :active_record
       g.template_engine :haml
       g.test_framework :rspec, fixture: true
-      g.fixture_replacement :factory_girl, dir: "spec/factories"
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
       g.view_specs false
       g.controller_specs false
       g.routing_specs false
@@ -26,7 +25,7 @@ module DropboxClone
       g.assets false
       g.helper false
     end
-  
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
