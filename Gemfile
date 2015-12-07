@@ -13,6 +13,7 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'devise'
 gem 'kaminari'
+gem 'carrierwave'
 
 group :development do
   gem 'web-console', '~> 2.0'

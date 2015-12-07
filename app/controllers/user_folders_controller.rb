@@ -1,10 +1,10 @@
-class UserItemsController < ApplicationController
+class UserFoldersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_folder, only: [:show]
-  before_action :set_user_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_folder, only: %i(show)
+  before_action :set_parent_folder, only: %i(new)
 
   def show
-    @items = @folder.childItems
+    @items = current_user.items.children(@folder)
   end
 
   def root
@@ -13,23 +13,19 @@ class UserItemsController < ApplicationController
   end
 
   def new
-    @user_item = UserItem.new
+    @folder = current_user.folders.build(parent_folder: @parent_folder)
   end
 
   def edit
   end
 
   def create
-    @user_item = UserItem.new(user_item_params)
+    @folder = current_user.folders.build(user_folder_params)
 
-    respond_to do |format|
-      if @user_item.save
-        format.html { redirect_to @user_item, notice: 'User item was successfully created.' }
-        format.json { render :show, status: :created, location: @user_item }
-      else
-        format.html { render :new }
-        format.json { render json: @user_item.errors, status: :unprocessable_entity }
-      end
+    if @folder.save
+      redirect_to root_user_folders_url, notice: 'フォルダを作成しました。'
+    else
+      render :new
     end
   end
 
@@ -59,11 +55,13 @@ class UserItemsController < ApplicationController
       @folder = current_user.folders.find(params[:id])
     end
 
-    def set_user_item
-      @user_item = UserItem.find(params[:id])
+    def set_parent_folder
+      if params[:user_folder_id].present?
+        @parent_folder = current_user.folders.find(params[:user_folder_id])
+      end
     end
 
-    def user_item_params
-      params[:user_item]
+    def user_folder_params
+      params.require(:user_folder).permit(:name, :parent_folder_id)
     end
 end

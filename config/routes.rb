@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#index'
 
-  resources :folders, only: %i(show new create), controller: 'user_items' do
+  resources :user_folders, only: %i(show new create), path: 'folders' do
     collection do
       get '', to: :root, as: 'root'
     end
+
+    resources :user_folders, only: %i(new), path: 'folders'
   end
 end

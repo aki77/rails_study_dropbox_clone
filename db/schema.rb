@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207062956) do
+ActiveRecord::Schema.define(version: 20151207083128) do
 
   create_table "user_items", force: :cascade do |t|
-    t.string   "name",             null: false
-    t.integer  "user_id",          null: false
-    t.integer  "parent_folder_id", null: false
-    t.string   "type",             null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "name",                         null: false
+    t.integer  "user_id",                      null: false
+    t.integer  "parent_folder_id", default: 0, null: false
+    t.string   "type",                         null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "file"
   end
 
   add_index "user_items", ["user_id", "parent_folder_id", "name", "type"], name: "item_name", unique: true

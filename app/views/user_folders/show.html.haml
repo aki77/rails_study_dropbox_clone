@@ -1,0 +1,24 @@
+%ol.breadcrumb
+  %li= link_to 'DropboxClone', root_user_folders_path
+  - if @folder.present?
+    %li.active= @folder.name
+
+%ul.nav.nav-pills
+  %li= link_to 'アップロード', root_path
+  - if @folder.present?
+    %li= link_to '新しいフォルダ', new_user_folder_user_folder_path(@folder)
+  - else
+    %li= link_to '新しいフォルダ', new_user_folder_path
+
+%table.table
+  %thead
+    %tr
+      %th 名前
+      %th 更新
+      %th 共有中のユーザ
+  %tbody
+    - @items.each do |item|
+      %tr
+        %td= link_to item.name, item
+        %td= item.updated_at
+        %td &nbsp;

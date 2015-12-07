@@ -1,0 +1,9 @@
+= simple_form_for(@folder) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :parent_folder_id, as: :hidden
+    = f.input :name
+
+  .form-actions
+    = f.button :submit
