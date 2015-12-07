@@ -10,6 +10,7 @@
   %body
     %header
       = render 'layouts/navigation'
-    %main{:role => "main"}
+    %main{role: 'main'}
       = render 'layouts/messages'
+      = breadcrumbs style: :bootstrap, display_single_fragment: true
       = yield

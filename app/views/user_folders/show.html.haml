@@ -1,7 +1,7 @@
-%ol.breadcrumb
-  %li= link_to 'DropboxClone', root_user_folders_path
-  - if @folder.present?
-    %li.active= @folder.name
+- if @folder.present?
+  - breadcrumb :folder, @folder
+- else
+  - breadcrumb :root
 
 %ul.nav.nav-pills
   %li= link_to 'アップロード', root_path

@@ -14,6 +14,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'kaminari'
 gem 'carrierwave'
+gem 'gretel'
 
 group :development do
   gem 'web-console', '~> 2.0'
