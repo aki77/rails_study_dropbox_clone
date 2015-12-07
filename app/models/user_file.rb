@@ -1,0 +1,2 @@
+class UserFile < UserItem
+end
