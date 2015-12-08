@@ -4,16 +4,16 @@ class UserFoldersController < ApplicationController
   before_action :set_parent_folder, only: %i(new)
 
   def show
-    @items = current_user.items.children(@folder)
+    @items = @folder.children
   end
 
   def root
-    @items = current_user.items.root
+    @items = current_user.items.roots
     render :show
   end
 
   def new
-    @folder = current_user.folders.build(parent_folder: @parent_folder)
+    @folder = current_user.folders.build(parent: @parent_folder)
   end
 
   def edit
@@ -23,7 +23,7 @@ class UserFoldersController < ApplicationController
     @folder = current_user.folders.build(user_folder_params)
 
     if @folder.save
-      redirect_to root_user_folders_url, notice: 'フォルダを作成しました。'
+      redirect_to @folder, notice: 'フォルダを作成しました。'
     else
       render :new
     end
@@ -62,6 +62,6 @@ class UserFoldersController < ApplicationController
     end
 
     def user_folder_params
-      params.require(:user_folder).permit(:name, :parent_folder_id)
+      params.require(:user_folder).permit(:name, :parent_id)
     end
 end

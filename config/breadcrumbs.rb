@@ -4,9 +4,17 @@ end
 
 crumb :folder do |folder|
   link folder.name, folder
-  if folder.has_parent?
-    parent :folder, folder.parent_folder
-  else
+  if folder.root?
     parent :root
+  else
+    parent :folder, folder.parent
+  end
+end
+
+crumb :new_folder do |folder|
+  if folder.root?
+    parent :root
+  else
+    parent :folder, folder.parent
   end
 end

@@ -1,7 +1,4 @@
-- if @folder.present?
-  - breadcrumb :folder, @folder
-- else
-  - breadcrumb :root
+- folder_breadcrumb @folder
 
 %ul.nav.nav-pills
   %li= link_to 'アップロード', root_path
