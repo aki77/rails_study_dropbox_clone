@@ -5,11 +5,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def url_for_folder(folder)
-      if folder.nil?
-        root_user_folders_url
-      else
-        folder
+    def set_parent_folder
+      if params[:user_folder_id].present?
+        @parent_folder = current_user.folders.find(params[:user_folder_id])
       end
     end
 end

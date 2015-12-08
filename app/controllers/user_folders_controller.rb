@@ -48,12 +48,6 @@ class UserFoldersController < ApplicationController
       @folder = current_user.folders.find(params[:id])
     end
 
-    def set_parent_folder
-      if params[:user_folder_id].present?
-        @parent_folder = current_user.folders.find(params[:user_folder_id])
-      end
-    end
-
     def user_folder_params
       params.require(:user_folder).permit(:name, :parent_id)
     end

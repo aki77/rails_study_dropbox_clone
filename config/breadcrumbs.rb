@@ -5,8 +5,6 @@ crumb :folder do |folder|
   end
 end
 
-crumb :folder_action do |folder|
-  unless folder.root?
-    parent :folder, folder.parent
-  end
+crumb :item_action do |item|
+  parent :folder, item.parent
 end
