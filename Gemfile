@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'gretel'
 gem 'ancestry'
+gem 'default_value_for'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -26,6 +27,7 @@ group :development do
   gem 'meta_request'
   gem 'rails_layout'
   gem 'letter_opener'
+  gem 'annotate'
 end
 
 group :development, :test do
