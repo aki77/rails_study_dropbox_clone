@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   private
 
     def guest_user!
-      redirect_to root_user_folders_url if user_signed_in?
+      redirect_to current_user.root_folder if user_signed_in?
     end
 end

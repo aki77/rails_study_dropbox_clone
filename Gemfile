@@ -16,7 +16,6 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'gretel'
 gem 'ancestry'
-gem 'default_value_for'
 
 group :development do
   gem 'web-console', '~> 2.0'

@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_user_items_on_ancestry  (ancestry)
-#  item_name                     (user_id,name,type) UNIQUE
+#  index_user_items_on_ancestry                       (ancestry)
+#  index_user_items_on_user_id_and_ancestry_and_name  (user_id,ancestry,name)
 #
 
 require 'rails_helper'

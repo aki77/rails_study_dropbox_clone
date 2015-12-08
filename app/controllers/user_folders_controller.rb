@@ -23,7 +23,7 @@ class UserFoldersController < ApplicationController
     @folder = current_user.folders.build(user_folder_params)
 
     if @folder.save
-      redirect_to @folder, notice: 'フォルダを作成しました。'
+      redirect_to @folder.parent, notice: 'フォルダを作成しました。'
     else
       render :new
     end
