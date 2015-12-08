@@ -1,6 +1,6 @@
 class UserFoldersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_folder, only: %i(show destroy)
+  before_action :set_folder, only: %i(show destroy edit update)
   before_action :set_parent_folder, only: %i(new)
 
   def show
@@ -30,14 +30,10 @@ class UserFoldersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @user_item.update(user_item_params)
-        format.html { redirect_to @user_item, notice: 'User item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_item }
-      else
-        format.html { render :edit }
-        format.json { render json: @user_item.errors, status: :unprocessable_entity }
-      end
+    if @folder.update(user_folder_params)
+      redirect_to @folder, notice: 'フォルダ名を更新しました。'
+    else
+      render :edit
     end
   end
 

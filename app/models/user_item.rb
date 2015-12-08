@@ -18,8 +18,6 @@
 #
 
 class UserItem < ActiveRecord::Base
-  ROOT_FOLDER_ID = 0
-
   has_ancestry
 
   validates :name, presence: true,
@@ -27,4 +25,12 @@ class UserItem < ActiveRecord::Base
   validates :user_id, presence: true
 
   belongs_to :user
+
+  def folder?
+    type == 'UserFolder'
+  end
+
+  def file?
+    type == 'UserFile'
+  end
 end
