@@ -1,6 +1,6 @@
 class UserFoldersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_folder, only: %i(show)
+  before_action :set_folder, only: %i(show destroy)
   before_action :set_parent_folder, only: %i(new)
 
   def show
@@ -42,11 +42,8 @@ class UserFoldersController < ApplicationController
   end
 
   def destroy
-    @user_item.destroy
-    respond_to do |format|
-      format.html { redirect_to user_items_url, notice: 'User item was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @folder.destroy!
+    redirect_to url_for_folder(@folder.parent), notice: 'フォルダを削除しました。'
   end
 
   private

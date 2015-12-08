@@ -13,9 +13,17 @@
       %th 名前
       %th 更新
       %th 共有中のユーザ
+      %th アクション
   %tbody
     - @items.each do |item|
       %tr
         %td= link_to item.name, item
         %td= item.updated_at
         %td &nbsp;
+        %td
+          .btn-group
+            %button.btn.btn-default.dropdown-toggle{ type: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false } }
+              Action
+              %span.caret
+            %ul.dropdown-menu
+              %li= link_to '削除', item, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }
