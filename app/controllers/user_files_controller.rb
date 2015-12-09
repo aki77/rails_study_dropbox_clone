@@ -1,7 +1,7 @@
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_file, only: %i(destroy edit update show download)
+  before_action :set_file, only: %i(destroy edit update show download copy)
 
   def show
   end
@@ -38,6 +38,11 @@ class UserFilesController < ApplicationController
 
   def download
     send_file @file.file.current_path, filename: @file.name
+  end
+
+  def copy
+    @file.copy!
+    redirect_to @file.parent, notice: 'ファイルをコピーしました。'
   end
 
   private

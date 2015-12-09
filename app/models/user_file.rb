@@ -21,4 +21,10 @@ class UserFile < UserItem
   validates :file, presence: true
 
   mount_uploader :file, FileUploader
+
+  def copy!
+    new_file = parent.build_file(name: "#{name} のコピー")
+    new_file.file = file.file
+    new_file.save!
+  end
 end

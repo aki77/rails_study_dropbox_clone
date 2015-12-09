@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :user_files, only: %i(new create edit update destroy show), path: 'files' do
       member do
         get :download
+        post :copy
       end
     end
   end

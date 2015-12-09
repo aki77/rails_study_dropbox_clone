@@ -7,7 +7,7 @@
   = link_to download_user_folder_user_file_path(@file.parent, @file), class: 'btn btn-default' do
     %span.glyphicon.glyphicon-download-alt{ aria: { hidden: true } }
     ダウンロード
-  %button.btn.btn-default{ type: 'button' }
+  = link_to copy_user_folder_user_file_path(@file.parent, @file), class: 'btn btn-default', method: :post do
     %span.glyphicon.glyphicon-copy{ aria: { hidden: true } }
     コピー
   = link_to [@file.parent, @file], method: :delete, class: 'btn btn-default', data: { confirm: '本当に削除してもよろしいですか？' } do
