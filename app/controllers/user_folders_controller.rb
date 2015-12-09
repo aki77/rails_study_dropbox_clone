@@ -39,7 +39,7 @@ class UserFoldersController < ApplicationController
 
   def destroy
     @folder.destroy!
-    redirect_to url_for_folder(@folder.parent), notice: 'フォルダを削除しました。'
+    redirect_to @folder.parent, notice: 'フォルダを削除しました。'
   end
 
   private
