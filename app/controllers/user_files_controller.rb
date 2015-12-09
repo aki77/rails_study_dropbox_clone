@@ -1,7 +1,10 @@
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_file, only: %i(destroy edit update)
+  before_action :set_file, only: %i(destroy edit update show download)
+
+  def show
+  end
 
   def new
     @file = @parent_folder.build_file
@@ -31,6 +34,10 @@ class UserFilesController < ApplicationController
   def destroy
     @file.destroy!
     redirect_to @file.parent, notice: 'ファイルを削除しました。'
+  end
+
+  def download
+    send_file @file.file.current_path, filename: @file.name
   end
 
   private
