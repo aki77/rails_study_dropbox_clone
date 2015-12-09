@@ -9,5 +9,10 @@
         %span.icon-bar
       = link_to 'Dropbox Clone', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
+      - if user_signed_in?
+        = search_form_for @search, url: search_path, as: :search, class: 'navbar-form navbar-left', role: 'search' do |f|
+          .form-group
+            = f.search_field :name_cont, class: 'form-control'
+          %button.btn.btn-default{ type: 'submit' } 検索
       %ul.nav.navbar-nav.navbar-right
         = render 'layouts/navigation_links'
