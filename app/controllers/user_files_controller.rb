@@ -1,7 +1,7 @@
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_file, only: %i(destroy edit update show download copy)
+  before_action :set_file, only: %i(destroy edit update show download copy move)
 
   def show
   end
@@ -25,7 +25,7 @@ class UserFilesController < ApplicationController
 
   def update
     if @file.update(user_file_params)
-      redirect_to @file.parent, notice: 'ファイル名を更新しました。'
+      redirect_to @file.parent, notice: 'ファイルを更新しました。'
     else
       render :edit
     end
@@ -45,6 +45,9 @@ class UserFilesController < ApplicationController
     redirect_to @file.parent, notice: 'ファイルをコピーしました。'
   end
 
+  def move
+  end
+
   private
 
     def set_file
@@ -52,6 +55,6 @@ class UserFilesController < ApplicationController
     end
 
     def user_file_params
-      params.require(:user_file).permit(:name, :file)
+      params.require(:user_file).permit(:name, :file, :parent_id)
     end
 end

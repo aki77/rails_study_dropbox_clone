@@ -13,3 +13,6 @@
   = link_to [@file.parent, @file], method: :delete, class: 'btn btn-default', data: { confirm: '本当に削除してもよろしいですか？' } do
     %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
     削除
+  = link_to move_user_folder_user_file_path(@file.parent, @file), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-arrow-right{ aria: { hidden: true } }
+    移動

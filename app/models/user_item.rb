@@ -34,4 +34,8 @@ class UserItem < ActiveRecord::Base
   def file?
     type == 'UserFile'
   end
+
+  def full_name
+    '/' + ancestors.map(&:name).push(name).join('/')
+  end
 end

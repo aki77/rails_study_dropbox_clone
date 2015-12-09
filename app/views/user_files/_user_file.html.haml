@@ -14,3 +14,4 @@
         %li= link_to '名前を変更', edit_user_folder_user_file_path(user_file.parent, user_file)
         %li= link_to 'ダウンロード', download_user_folder_user_file_path(user_file.parent, user_file)
         %li= link_to 'コピー', copy_user_folder_user_file_path(user_file.parent, user_file), method: :post
+        %li= link_to '移動', move_user_folder_user_file_path(user_file.parent, user_file)
