@@ -1,4 +1,5 @@
 - if signed_in?
+  %li= link_to 'イベント', events_path
   %li.dropdown#fat-menu
     %a.dropdown-toggle{ 'data-toggle' => 'dropdown', :href => '#' }
       アカウント

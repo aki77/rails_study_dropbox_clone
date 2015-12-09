@@ -27,6 +27,9 @@ class UserItem < ActiveRecord::Base
   scope :files, -> { where(type: 'UserFile') }
   scope :folders, -> { where(type: 'UserFolder') }
 
+  after_create -> { create_event(:add) }
+  after_destroy -> { create_event(:remove) }
+
   def folder?
     type == 'UserFolder'
   end
@@ -38,4 +41,10 @@ class UserItem < ActiveRecord::Base
   def full_name
     '/' + ancestors.map(&:name).push(name).join('/')
   end
+
+  private
+
+    def create_event(key)
+      Event.create!(user: user, key: key, name: name)
+    end
 end

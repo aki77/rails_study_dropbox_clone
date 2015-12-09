@@ -1,0 +1,8 @@
+%h1 イベント
+
+%table.table
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= t("event.#{event.key}", name: event.name)
+        %td= event.created_at

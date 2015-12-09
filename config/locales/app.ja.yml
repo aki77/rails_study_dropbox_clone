@@ -1,0 +1,6 @@
+ja:
+  event:
+    add: "「%{name}」を追加しました。"
+    remove: "「%{name}」を削除しました。"
+    move: "「%{name}」を移動しました。"
+    rename: "「%{name}」を変更しました。"

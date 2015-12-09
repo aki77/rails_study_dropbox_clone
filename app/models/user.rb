@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   has_many :items, class_name: 'UserItem'
   has_many :folders, class_name: 'UserFolder'
   has_many :files, class_name: 'UserFile'
+  has_many :events
 
   after_create :create_home_folder
 
