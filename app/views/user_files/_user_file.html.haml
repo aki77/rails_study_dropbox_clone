@@ -3,6 +3,7 @@
     = item_icon(user_file)
     = link_to user_file.name, [user_file.parent, user_file]
   %td= user_file.updated_at
+  %td= user_file.content_type
   %td &nbsp;
   %td
     .btn-group

@@ -2,14 +2,15 @@
 #
 # Table name: user_items
 #
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  user_id    :integer          not null
-#  type       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  file       :string
-#  ancestry   :string
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  user_id      :integer          not null
+#  type         :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  file         :string
+#  ancestry     :string
+#  content_type :string           default(""), not null
 #
 # Indexes
 #
@@ -21,9 +22,17 @@ class UserFile < UserItem
 
   mount_uploader :file, FileUploader
 
+  before_validation :update_file_attributes, on: :create
+
   def copy!
     new_file = parent.build_file(name: "#{name} のコピー")
     new_file.file = file.file
     new_file.save!
   end
+
+  private
+
+    def update_file_attributes
+      self.content_type = file.file.content_type
+    end
 end

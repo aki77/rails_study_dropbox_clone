@@ -2,14 +2,15 @@
 #
 # Table name: user_items
 #
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  user_id    :integer          not null
-#  type       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  file       :string
-#  ancestry   :string
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  user_id      :integer          not null
+#  type         :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  file         :string
+#  ancestry     :string
+#  content_type :string           default(""), not null
 #
 # Indexes
 #
@@ -21,6 +22,7 @@ class UserItem < ActiveRecord::Base
 
   validates :name, presence: true
   validates :user_id, presence: true
+  validates :content_type, presence: true
 
   belongs_to :user
 
