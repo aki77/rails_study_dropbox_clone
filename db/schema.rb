@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208075905) do
+ActiveRecord::Schema.define(version: 20151209063757) do
 
   create_table "user_items", force: :cascade do |t|
     t.string   "name",       null: false
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20151208075905) do
   end
 
   add_index "user_items", ["ancestry"], name: "index_user_items_on_ancestry"
-  add_index "user_items", ["user_id", "ancestry", "name"], name: "index_user_items_on_user_id_and_ancestry_and_name"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

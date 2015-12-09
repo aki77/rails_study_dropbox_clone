@@ -13,15 +13,13 @@
 #
 # Indexes
 #
-#  index_user_items_on_ancestry                       (ancestry)
-#  index_user_items_on_user_id_and_ancestry_and_name  (user_id,ancestry,name)
+#  index_user_items_on_ancestry  (ancestry)
 #
 
 class UserItem < ActiveRecord::Base
   has_ancestry
 
-  validates :name, presence: true,
-                   uniqueness: { scope: %i(user_id ancestry) }
+  validates :name, presence: true
   validates :user_id, presence: true
 
   belongs_to :user
