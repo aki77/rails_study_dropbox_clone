@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'carrierwave'
 gem 'gretel'
 gem 'ancestry'
+gem 'ransack'
 
 group :development do
   gem 'web-console', '~> 2.0'

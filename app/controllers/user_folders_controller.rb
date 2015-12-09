@@ -4,7 +4,9 @@ class UserFoldersController < ApplicationController
   before_action :set_parent_folder, only: %i(new)
 
   def show
-    @items = @folder.children
+    @q = @folder.children.search(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
+    @items = @q.result
   end
 
   def root
