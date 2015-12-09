@@ -29,6 +29,8 @@ class UserItem < ActiveRecord::Base
 
   after_create -> { create_event(:add) }
   after_destroy -> { create_event(:remove) }
+  after_update -> { create_event(:move) }, if: :ancestry_changed?
+  after_update -> { create_event(:rename, name_was) }, if: :name_changed?
 
   def folder?
     type == 'UserFolder'
@@ -44,7 +46,8 @@ class UserItem < ActiveRecord::Base
 
   private
 
-    def create_event(key)
-      Event.create!(user: user, key: key, name: name)
+    def create_event(key, name = nil)
+      name ||= self.name
+      user.events.create!(key: key, name: name)
     end
 end
