@@ -1,0 +1,14 @@
+%tr
+  %td
+    = item_icon(user_file)
+    = link_to user_file.name, [user_file.parent, user_file]
+  %td= user_file.updated_at
+  %td &nbsp;
+  %td
+    .btn-group
+      %button.btn.btn-default.dropdown-toggle{ type: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false } }
+        Action
+        %span.caret
+      %ul.dropdown-menu
+        %li= link_to '削除', [user_file.parent, user_file], method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }
+        %li= link_to '名前を変更', edit_user_folder_user_file_path(user_file.parent, user_file)

@@ -4,8 +4,6 @@ Rails.application.routes.draw do
 
   resources :user_folders, only: %i(show create destroy edit update), path: 'folders' do
     resources :user_folders, only: %i(new), path: 'folders'
-    resources :user_files, only: %i(new create), path: 'files'
+    resources :user_files, only: %i(new create edit update destroy), path: 'files'
   end
-
-  resources :user_files, only: %i(show destroy), path: 'files'
 end

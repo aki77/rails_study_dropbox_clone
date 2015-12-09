@@ -18,4 +18,9 @@
 #
 
 class UserFolder < UserItem
+  def build_file(*args)
+    file = user.files.build(*args)
+    file.parent = self
+    file
+  end
 end

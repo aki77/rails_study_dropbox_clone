@@ -26,6 +26,9 @@ class UserItem < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :files, -> { where(type: 'UserFile') }
+  scope :folders, -> { where(type: 'UserFolder') }
+
   def folder?
     type == 'UserFolder'
   end

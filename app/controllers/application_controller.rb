@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
   private
 
     def set_parent_folder
-      if params[:user_folder_id].present?
-        @parent_folder = current_user.folders.find(params[:user_folder_id])
-      end
+      @parent_folder = current_user.folders.find(params[:user_folder_id])
     end
 end

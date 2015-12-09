@@ -2,8 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :parent_id, as: :hidden
-    = f.input :file
+    - if @file.new_record?
+      = f.input :file
+    - else
+      = f.input :name
 
   .form-actions
     = f.button :submit
