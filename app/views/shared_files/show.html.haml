@@ -1,2 +1,8 @@
-%h1 SharedFiles#show
-%p Find me in app/views/shared_files/show.html.haml
+- breadcrumb :item_action, @shared_file.file
+
+%h1= @shared_file.file.name
+
+.btn-group.btn-group-lg{ role: 'group', aria: { label: 'toolbar' } }
+  = link_to download_shared_file_path(@shared_file), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-download-alt{ aria: { hidden: true } }
+    ダウンロード

@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   end
 
   resources :events, only: %i(index)
-  resources :shared_files, only: %i(show)
+  resources :shared_files, only: %i(show) do
+    member do
+      get :download
+    end
+  end
 
   get 'search', to: 'user_items#search'
 end

@@ -1,10 +1,14 @@
 class SharedFilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_parent_folder
-  before_action :set_file
-  before_action :set_shared_file, only: %i(show destroy)
+  before_action :set_parent_folder, only: %i(create destroy)
+  before_action :set_file, only: %i(create destroy)
+  before_action :set_shared_file, only: %i(show download)
 
   def show
+  end
+
+  def download
+    send_file @shared_file.file.file.current_path, filename: @shared_file.file.name
   end
 
   def create
@@ -18,6 +22,7 @@ class SharedFilesController < ApplicationController
   end
 
   def destroy
+    @shared_file = @file.shared_files.find(params[:id])
     @shared_file.destroy!
     redirect_to share_user_folder_user_file_path(@file.parent, @file), notice: 'ファイルの共有を解除しました。'
   end
@@ -29,10 +34,6 @@ class SharedFilesController < ApplicationController
     end
 
     def set_shared_file
-      @shared_file = @file.shared_files.find(params[:id])
-    end
-
-    def shared_file_params
-      params.require(:shared_file).permit(:email)
+      @shared_file = current_user.shared_files.find(params[:id])
     end
 end
