@@ -24,6 +24,10 @@ class UserFile < UserItem
 
   before_validation :update_file_attributes, on: :create
 
+  has_many :shared_files, foreign_key: 'user_item_id', dependent: :destroy
+
+  accepts_nested_attributes_for :shared_files
+
   def copy!
     new_file = parent.build_file(name: "#{name} のコピー")
     new_file.file = file.file

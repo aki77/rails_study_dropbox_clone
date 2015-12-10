@@ -32,10 +32,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  has_many :items, class_name: 'UserItem'
+  has_many :items, class_name: 'UserItem', dependent: :destroy
   has_many :folders, class_name: 'UserFolder'
   has_many :files, class_name: 'UserFile'
-  has_many :events
+  has_many :events, dependent: :destroy
+  has_many :shared_files, foreign_key: 'shared_user_id', dependent: :destroy
 
   after_create :create_home_folder
 

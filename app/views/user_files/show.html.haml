@@ -16,3 +16,6 @@
   = link_to move_user_folder_user_file_path(@file.parent, @file), class: 'btn btn-default' do
     %span.glyphicon.glyphicon-arrow-right{ aria: { hidden: true } }
     移動
+  = link_to share_user_folder_user_file_path(@file.parent, @file), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-share{ aria: { hidden: true } }
+    共有

@@ -1,7 +1,7 @@
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_parent_folder
-  before_action :set_file, only: %i(destroy edit update show download copy move)
+  before_action :set_file, only: %i(destroy edit update show download copy move share)
 
   def show
   end
@@ -27,7 +27,11 @@ class UserFilesController < ApplicationController
     if @file.update(user_file_params)
       redirect_to @file.parent, notice: 'ファイルを更新しました。'
     else
-      render :edit
+      if params.fetch(:user_file, {})[:parent_id].present?
+        render :move
+      else
+        render :edit
+      end
     end
   end
 
@@ -46,6 +50,10 @@ class UserFilesController < ApplicationController
   end
 
   def move
+  end
+
+  def share
+    @shared_file = @file.shared_files.build
   end
 
   private

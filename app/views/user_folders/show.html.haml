@@ -1,11 +1,12 @@
 - breadcrumb :folder, @folder
 
-%ul.nav.nav-pills
-  %li= link_to 'アップロード', new_user_folder_user_file_path(@folder)
-  - if @folder.present?
-    %li= link_to '新しいフォルダ', new_user_folder_user_folder_path(@folder)
-  - else
-    %li= link_to '新しいフォルダ', new_user_folder_path
+.btn-group.btn-group-lg{ role: 'group', aria: { label: 'toolbar' }}
+  = link_to new_user_folder_user_file_path(@folder), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-upload{ aria: { hidden: true } }
+    アップロード
+  = link_to new_user_folder_user_folder_path(@folder), class: 'btn btn-default', method: :post do
+    %span.glyphicon.glyphicon-plus{ aria: { hidden: true } }
+    新しいフォルダ
 
 %table.table
   %thead

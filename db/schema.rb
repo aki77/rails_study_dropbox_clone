@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209151520) do
+ActiveRecord::Schema.define(version: 20151210023806) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "key",        limit: 1, null: false
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20151209151520) do
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id"
+
+  create_table "shared_files", force: :cascade do |t|
+    t.integer  "user_item_id",   null: false
+    t.integer  "shared_user_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "shared_files", ["user_item_id", "shared_user_id"], name: "index_shared_files_on_user_item_id_and_shared_user_id", unique: true
 
   create_table "user_items", force: :cascade do |t|
     t.string   "name",                      null: false
