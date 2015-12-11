@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210023806) do
+ActiveRecord::Schema.define(version: 20151211054716) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "key",        limit: 1, null: false
@@ -33,14 +33,15 @@ ActiveRecord::Schema.define(version: 20151210023806) do
   add_index "shared_files", ["user_item_id", "shared_user_id"], name: "index_shared_files_on_user_item_id_and_shared_user_id", unique: true
 
   create_table "user_items", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.integer  "user_id",                   null: false
-    t.string   "type",                      null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",                            null: false
+    t.integer  "user_id",                         null: false
+    t.string   "type",                            null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "file"
     t.string   "ancestry"
-    t.string   "content_type", default: "", null: false
+    t.string   "content_type",       default: "", null: false
+    t.integer  "shared_files_count", default: 0,  null: false
   end
 
   add_index "user_items", ["ancestry"], name: "index_user_items_on_ancestry"

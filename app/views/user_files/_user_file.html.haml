@@ -4,7 +4,7 @@
     = link_to user_file.name, [user_file.parent, user_file]
   %td= user_file.updated_at
   %td= user_file.content_type
-  %td &nbsp;
+  %td= link_to user_file.shared_files_count, share_user_folder_user_file_path(user_file.parent, user_file)
   %td
     .btn-group
       %button.btn.btn-default.dropdown-toggle{ type: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false } }
