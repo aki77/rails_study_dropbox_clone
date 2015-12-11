@@ -14,7 +14,7 @@
 #
 
 class SharedFile < ActiveRecord::Base
-  attr_accessor :email
+  attr_accessor :email, :message
 
   belongs_to :file, class_name: 'UserFile', foreign_key: :user_item_id
   belongs_to :shared_user, class_name: 'User'

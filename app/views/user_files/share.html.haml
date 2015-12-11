@@ -18,6 +18,7 @@
 
   .form-inputs
     = f.input :email, placeholder: '共有したいユーザのメールアドレスを入力してください'
+    = f.input :message, as: :text, placeholder: 'メッセージ(オプション)'
 
   .form-actions
     = f.button :submit
