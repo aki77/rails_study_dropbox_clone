@@ -15,6 +15,7 @@ class SharedFilesController < ApplicationController
     @shared_file = @file.shared_files.build(shared_file_params)
 
     if @shared_file.save
+      # @shared_file.message はDBに保存されないので deliver_later で送信すると nil になる
       SharedMailer.shared_email(@shared_file, @shared_file.message).deliver_later
       redirect_to share_user_folder_user_file_path(@file.parent, @file), notice: 'ファイルを共有しました。'
     else
