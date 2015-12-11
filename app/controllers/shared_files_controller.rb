@@ -15,6 +15,7 @@ class SharedFilesController < ApplicationController
     @shared_file = @file.shared_files.build(shared_file_params)
 
     if @shared_file.save
+      SharedMailer.shared_email(@shared_file).deliver_later
       redirect_to share_user_folder_user_file_path(@file.parent, @file), notice: 'ファイルを共有しました。'
     else
       render 'user_files/share'
@@ -35,5 +36,9 @@ class SharedFilesController < ApplicationController
 
     def set_shared_file
       @shared_file = current_user.shared_files.find(params[:id])
+    end
+
+    def shared_file_params
+      params.require(:shared_file).permit(:email)
     end
 end
