@@ -5,6 +5,6 @@
     - @events.each do |event|
       %tr
         %td= t("event.#{event.key}", name: event.name)
-        %td= event.created_at
+        %td= l(event.created_at)
 
 .text-center= paginate @events
