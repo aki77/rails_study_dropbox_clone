@@ -8,7 +8,7 @@
     - when :edit
       = f.input :name
     - when :move
-      = f.input :parent_id, collection: @file.root.subtree.folders, label_method: :full_name, include_blank: false
+      = render 'user_items/input_parent', form: f, item: @file
 
   .form-actions
     = f.button :submit

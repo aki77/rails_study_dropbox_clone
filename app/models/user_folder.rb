@@ -20,4 +20,9 @@
 
 class UserFolder < UserItem
   default_value_for :content_type, 'application/x-directory'
+
+  # 自身の子フォルダには移動できない
+  def moving_targets
+    super.where.not(id: subtree_ids)
+  end
 end

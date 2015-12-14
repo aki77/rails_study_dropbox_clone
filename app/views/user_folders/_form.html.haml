@@ -1,12 +1,13 @@
 = simple_form_for(folder_form_args(@folder)) do |f|
   = f.error_notification
+  = f.error :base
 
   .form-inputs
     - case type
     - when :new, :edit
       = f.input :name
     - when :move
-      = f.input :parent_id, collection: @folder.root.subtree.folders.where.not(id: @folder.id), label_method: :full_name, include_blank: false
+      = render 'user_items/input_parent', form: f, item: @folder
 
   .form-actions
     = f.button :submit

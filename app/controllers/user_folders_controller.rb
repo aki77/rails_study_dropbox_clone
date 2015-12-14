@@ -40,7 +40,11 @@ class UserFoldersController < ApplicationController
     if @folder.update(user_folder_params)
       redirect_to @folder.parent, notice: 'フォルダを更新しました。'
     else
-      render :edit
+      if params.fetch(:user_folder, {})[:parent_id].present?
+        render :move
+      else
+        render :edit
+      end
     end
   end
 

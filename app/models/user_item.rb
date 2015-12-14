@@ -24,6 +24,7 @@ class UserItem < ActiveRecord::Base
   validates :name, presence: true
   validates :user_id, presence: true
   validates :content_type, presence: true
+  validate :correct_user, unless: :root?
 
   belongs_to :user
 
@@ -51,10 +52,18 @@ class UserItem < ActiveRecord::Base
     '/' + ancestors.map(&:name).push(name).join('/')
   end
 
+  def moving_targets
+    user.root_folder.subtree.folders
+  end
+
   private
 
     def create_event(key, name = nil)
       name ||= self.name
       user.events.create!(key: key, name: name)
+    end
+
+    def correct_user
+      errors.add(:parent_id, :invalid) if user != parent.user
     end
 end
