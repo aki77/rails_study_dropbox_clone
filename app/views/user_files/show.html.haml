@@ -23,7 +23,7 @@
 
 - case @file.media_type
 - when 'text'
-  %pre= @file.content
+  %pre= h(@file.content)
 - when 'image'
   .text-center
     = image_tag(preview_user_folder_user_file_path(@file.parent, @file), class: 'img-responsive')
