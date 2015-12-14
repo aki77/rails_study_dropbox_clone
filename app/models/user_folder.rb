@@ -20,10 +20,4 @@
 
 class UserFolder < UserItem
   default_value_for :content_type, 'application/x-directory'
-
-  def build_file(*args)
-    file = user.files.build(*args)
-    file.parent = self
-    file
-  end
 end

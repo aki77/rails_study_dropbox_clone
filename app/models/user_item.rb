@@ -35,6 +35,10 @@ class UserItem < ActiveRecord::Base
   after_update -> { create_event(:move) }, if: :ancestry_changed?
   after_update -> { create_event(:rename, name_was) }, if: :name_changed?
 
+  default_value_for :user do |i|
+    i.parent.user unless i.root?
+  end
+
   def folder?
     type == 'UserFolder'
   end
