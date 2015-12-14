@@ -2,6 +2,7 @@ class UserFoldersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_folder, only: %i(show destroy edit update move)
   before_action :set_parent_folder, only: %i(new create)
+  before_action :correct_folder, only: %i(edit update destroy move)
 
   def show
     @q = @folder.children.search(params[:q])
@@ -44,7 +45,6 @@ class UserFoldersController < ApplicationController
   end
 
   def destroy
-    raise Forbidden if @folder.root?
     @folder.destroy!
     redirect_to @folder.parent, notice: 'フォルダを削除しました。'
   end
@@ -57,5 +57,9 @@ class UserFoldersController < ApplicationController
 
     def user_folder_params
       params.require(:user_folder).permit(:name, :parent_id)
+    end
+
+    def correct_folder
+      raise Forbidden if @folder.root?
     end
 end
