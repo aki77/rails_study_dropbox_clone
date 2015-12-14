@@ -1,6 +1,4 @@
 class SharedMailer < ApplicationMailer
-  default from: 'dropbox.clone@example.com'
-
   def shared_email(shared_file, message)
     @shared_file = shared_file
     @message = message

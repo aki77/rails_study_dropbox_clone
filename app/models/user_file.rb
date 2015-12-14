@@ -35,6 +35,22 @@ class UserFile < UserItem
     new_file.save!
   end
 
+  def image?
+    media_type == 'image'
+  end
+
+  def text?
+    media_type == 'text'
+  end
+
+  def media_type
+    content_type.split('/').first
+  end
+
+  def content
+    File.read(file.path).toutf8
+  end
+
   private
 
     def update_file_attributes

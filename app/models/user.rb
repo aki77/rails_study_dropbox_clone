@@ -38,9 +38,9 @@ class User < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :shared_files, foreign_key: 'shared_user_id', dependent: :destroy
 
-  after_create :create_home_folder
+  after_create :create_root_folder
 
-  def create_home_folder
+  def create_root_folder
     folders.create!(name: 'Home')
   end
 

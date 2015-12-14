@@ -1,8 +1,10 @@
 class SharedFilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_parent_folder, only: %i(create destroy)
-  before_action :set_file, only: %i(create destroy)
-  before_action :set_shared_file, only: %i(show download)
+  before_action :set_parent_folder, only: %i(create)
+  before_action :set_file, only: %i(create)
+  before_action :set_shared_file, only: %i(show download destroy preview)
+  before_action :correct_shared_user, only: %i(show download preview)
+  before_action :correct_item_user, only: %i(destroy)
 
   def show
   end
@@ -24,9 +26,13 @@ class SharedFilesController < ApplicationController
   end
 
   def destroy
-    @shared_file = @file.shared_files.find(params[:id])
     @shared_file.destroy!
-    redirect_to share_user_folder_user_file_path(@file.parent, @file), notice: 'ファイルの共有を解除しました。'
+    redirect_to share_user_folder_user_file_path(@shared_file.file.parent, @shared_file.file), notice: 'ファイルの共有を解除しました。'
+  end
+
+  def preview
+    raise Forbidden unless @shared_file.file.image?
+    send_file @shared_file.file.file.current_path, disposition: 'inline'
   end
 
   private
@@ -36,7 +42,15 @@ class SharedFilesController < ApplicationController
     end
 
     def set_shared_file
-      @shared_file = current_user.shared_files.find(params[:id])
+      @shared_file = SharedFile.find(params[:id])
+    end
+
+    def correct_shared_user
+      raise Forbidden unless @shared_file.shared_user == current_user
+    end
+
+    def correct_item_user
+      raise Forbidden unless @shared_file.file.user == current_user
     end
 
     def shared_file_params

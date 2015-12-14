@@ -10,15 +10,17 @@ Rails.application.routes.draw do
         post :copy
         get :move
         get :share
+        get :preview
       end
-      resources :shared_files, only: %i(create destroy)
+      resources :shared_files, only: %i(create)
     end
   end
 
   resources :events, only: %i(index)
-  resources :shared_files, only: %i(show) do
+  resources :shared_files, only: %i(show destroy) do
     member do
       get :download
+      get :preview
     end
   end
 

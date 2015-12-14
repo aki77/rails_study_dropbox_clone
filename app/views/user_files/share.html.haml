@@ -11,7 +11,7 @@
           - @file.shared_files.includes(:shared_user).reject(&:new_record?).each do |shared_file|
             %tr
               %td= shared_file.shared_user.email
-              %td= link_to '削除', [@file.parent, @file, shared_file], method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }
+              %td= link_to '削除', shared_file, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }
 
 = simple_form_for([@file.parent, @file, @shared_file]) do |f|
   = f.error_notification

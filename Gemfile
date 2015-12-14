@@ -18,6 +18,7 @@ gem 'gretel'
 gem 'ancestry'
 gem 'ransack'
 gem 'default_value_for'
+gem 'rambulance'
 
 group :development do
   gem 'web-console', '~> 2.0'

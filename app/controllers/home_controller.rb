@@ -1,12 +1,5 @@
 class HomeController < ApplicationController
-  before_action :guest_user!
-
   def index
+    redirect_to current_user.root_folder if user_signed_in?
   end
-
-  private
-
-    def guest_user!
-      redirect_to current_user.root_folder if user_signed_in?
-    end
 end
