@@ -40,6 +40,7 @@ class UserFoldersController < ApplicationController
   end
 
   def destroy
+    raise Forbidden if @folder.root?
     @folder.destroy!
     redirect_to @folder.parent, notice: 'フォルダを削除しました。'
   end
