@@ -1,7 +1,7 @@
 - breadcrumb :item_action, @folder
 
-%h1 新しいフォルダを作る
+%h1 フォルダを移動
 
-= render 'form', type: :new
+= render 'form', type: :move
 
 = link_to '戻る', @folder.parent

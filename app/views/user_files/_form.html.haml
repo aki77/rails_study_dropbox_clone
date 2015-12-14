@@ -2,13 +2,12 @@
   = f.error_notification
 
   .form-inputs
-    - if type == :new
+    - case type
+    - when :new
       = f.input :file
-
-    - if type == :edit
+    - when :edit
       = f.input :name
-
-    - if type == :move
+    - when :move
       = f.input :parent_id, collection: @file.root.subtree.folders, label_method: :full_name, include_blank: false
 
   .form-actions

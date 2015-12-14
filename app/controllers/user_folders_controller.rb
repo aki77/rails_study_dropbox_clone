@@ -1,6 +1,6 @@
 class UserFoldersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_folder, only: %i(show destroy edit update)
+  before_action :set_folder, only: %i(show destroy edit update move)
   before_action :set_parent_folder, only: %i(new create)
 
   def show
@@ -22,6 +22,9 @@ class UserFoldersController < ApplicationController
   def edit
   end
 
+  def move
+  end
+
   def create
     @folder = @parent_folder.children.build(user_folder_params.merge(type: 'UserFolder'))
 
@@ -34,7 +37,7 @@ class UserFoldersController < ApplicationController
 
   def update
     if @folder.update(user_folder_params)
-      redirect_to @folder, notice: 'フォルダ名を更新しました。'
+      redirect_to @folder.parent, notice: 'フォルダを更新しました。'
     else
       render :edit
     end
@@ -53,6 +56,6 @@ class UserFoldersController < ApplicationController
     end
 
     def user_folder_params
-      params.require(:user_folder).permit(:name)
+      params.require(:user_folder).permit(:name, :parent_id)
     end
 end

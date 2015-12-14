@@ -2,8 +2,11 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :parent_id, as: :hidden
-    = f.input :name
+    - case type
+    - when :new, :edit
+      = f.input :name
+    - when :move
+      = f.input :parent_id, collection: @folder.root.subtree.folders.where.not(id: @folder.id), label_method: :full_name, include_blank: false
 
   .form-actions
     = f.button :submit

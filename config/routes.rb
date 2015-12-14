@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :user_folders, only: %i(show destroy edit update), path: 'folders' do
+    member do
+      get :move
+    end
+
     resources :user_folders, only: %i(new create), path: 'folders'
     resources :user_files, only: %i(new create edit update destroy show share), path: 'files' do
       member do
