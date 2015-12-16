@@ -21,6 +21,8 @@ class SharedFile < ActiveRecord::Base
 
   validates :user_item_id, presence: true
   validates :email, presence: true
+  # before_validate :email2shared_user のほうが適切。このメソッド内でバリデーションしているわけではない
+  # ただ、attr_accessorでemailを受けて変換するという発想は良いと思います！
   validate :email2shared_user
   validates :shared_user_id, presence: { message: '入力されたメールアドレスのユーザは存在しません。' }, uniqueness: { scope: :user_item_id }
 

@@ -12,6 +12,12 @@ class UserFilesController < ApplicationController
 
   def create
     @file = @parent_folder.children.build(user_file_params.merge(type: 'UserFile'))
+    # merge で書くよりも明示的に書くほうがしっくり来ますね。
+    # @file.type = 'UserFile'
+    # もしくはスコープを使って以下のようにかける気がする new も同様 'UserFile' という文字列を出来るだけ隠蔽したいので、スコープでやるのが良いかも
+    # @file = @parent_folder.children.files.build(user_file_params)
+    # UserFoldersController#new で書いているけど、違うモデルに成ってしまう問題があるみたいですね。。。うーむ。
+    # @parent_folder.children.build_file(user_file_params) みたいなメソッドを作ってしまうのかな
 
     if @file.save
       redirect_to @file.parent, notice: 'ファイルをアップロードしました。'
