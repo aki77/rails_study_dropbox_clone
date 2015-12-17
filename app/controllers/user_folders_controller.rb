@@ -34,7 +34,9 @@ class UserFoldersController < ApplicationController
     if @folder.update(user_folder_params)
       redirect_to @folder.parent, notice: 'フォルダを更新しました。'
     else
-      if params.fetch(:user_folder, {})[:parent_id].present?
+      if move_action?
+        # parent_idが不正な場合はDBから読み直さないとview側で意図しない動作になる可能性がある
+        @folder.reload
         render :move
       else
         render :edit
@@ -54,10 +56,18 @@ class UserFoldersController < ApplicationController
     end
 
     def user_folder_params
-      params.require(:user_folder).permit(:name, :parent_id)
+      if params[:action] == 'create'
+        params.require(:user_folder).permit(:name)
+      else
+        params.require(:user_folder).permit(:name, :parent_id)
+      end
     end
 
     def correct_folder
       raise Forbidden if @folder.root?
+    end
+
+    def move_action?
+      params[:user_folder].try(:has_key?, :parent_id)
     end
 end

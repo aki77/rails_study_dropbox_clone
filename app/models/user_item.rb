@@ -24,7 +24,9 @@ class UserItem < ActiveRecord::Base
   validates :name, presence: true
   validates :user_id, presence: true
   validates :content_type, presence: true
-  validate :correct_user, unless: :root?
+  # ルートへの更新は不可
+  validates :parent_id, presence: true, on: :update
+  validate :correct_parent, unless: :root?
 
   belongs_to :user
 
@@ -63,7 +65,8 @@ class UserItem < ActiveRecord::Base
       user.events.create!(key: key, name: name)
     end
 
-    def correct_user
+    def correct_parent
       errors.add(:parent_id, :invalid) if user != parent.user
+      errors.add(:parent_id, :invalid) unless parent.folder?
     end
 end

@@ -27,7 +27,9 @@ class UserFilesController < ApplicationController
     if @file.update(user_file_params)
       redirect_to @file.parent, notice: 'ファイルを更新しました。'
     else
-      if params.fetch(:user_file, {})[:parent_id].present?
+      if move_action?
+        # parent_idが不正な場合はDBから読み直さないとview側で意図しない動作になる可能性がある
+        @file.reload
         render :move
       else
         render :edit
@@ -68,6 +70,14 @@ class UserFilesController < ApplicationController
     end
 
     def user_file_params
-      params.fetch(:user_file, {}).permit(:name, :file, :parent_id)
+      if params[:action] == 'create'
+        params.require(:user_file).permit(:file)
+      else
+        params.fetch(:user_file, {}).permit(:name, :parent_id)
+      end
+    end
+
+    def move_action?
+      params[:user_file].try(:has_key?, :parent_id)
     end
 end
