@@ -68,6 +68,6 @@ class UserFilesController < ApplicationController
     end
 
     def user_file_params
-      params.require(:user_file).permit(:name, :file, :parent_id)
+      params.fetch(:user_file, {}).permit(:name, :file, :parent_id)
     end
 end

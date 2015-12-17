@@ -23,7 +23,7 @@ class UserFile < UserItem
 
   mount_uploader :file, FileUploader
 
-  before_validation :update_file_attributes, on: :create, unless: :content_type?
+  before_validation :update_file_attributes, on: :create, unless: :content_type?, if: :file?
 
   has_many :shared_files, foreign_key: 'user_item_id', dependent: :destroy
 
