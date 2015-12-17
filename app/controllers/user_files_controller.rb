@@ -71,9 +71,9 @@ class UserFilesController < ApplicationController
 
     def user_file_params
       if params[:action] == 'create'
-        params.require(:user_file).permit(:file)
+        params.fetch(:user_file, {}).permit(:file)
       else
-        params.fetch(:user_file, {}).permit(:name, :parent_id)
+        params.require(:user_file).permit(:name, :parent_id)
       end
     end
 
