@@ -7,11 +7,11 @@ class UserFilesController < ApplicationController
   end
 
   def new
-    @file = @parent_folder.children.build(type: 'UserFile')
+    @file = @parent_folder.build_file
   end
 
   def create
-    @file = @parent_folder.children.build(user_file_params.merge(type: 'UserFile'))
+    @file = @parent_folder.build_file(user_file_params)
 
     if @file.save
       redirect_to @file.parent, notice: 'ファイルをアップロードしました。'

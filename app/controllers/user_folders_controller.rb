@@ -16,8 +16,7 @@ class UserFoldersController < ApplicationController
   end
 
   def new
-    # @parent_folder.children.folders.build だと UserItem インスタンスが生成されてしまう
-    @folder = @parent_folder.children.build(type: 'UserFolder')
+    @folder = @parent_folder.build_folder
   end
 
   def edit
@@ -27,7 +26,7 @@ class UserFoldersController < ApplicationController
   end
 
   def create
-    @folder = @parent_folder.children.build(user_folder_params.merge(type: 'UserFolder'))
+    @folder = @parent_folder.build_folder(user_folder_params)
 
     if @folder.save
       redirect_to @folder.parent, notice: 'フォルダを作成しました。'

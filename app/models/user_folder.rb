@@ -21,8 +21,24 @@
 class UserFolder < UserItem
   default_value_for :content_type, 'application/x-directory'
 
+  def build_file(attrs = {})
+    build_children('UserFile', attrs)
+  end
+
+  def build_folder(attrs = {})
+    build_children('UserFolder', attrs)
+  end
+
   # 自身の子フォルダには移動できない
   def moving_targets
     super.where.not(id: subtree_ids)
   end
+
+  private
+
+    def build_children(type, attrs)
+      # children.folders.build だと UserItem インスタンスが生成されてしまう
+      # UserFolder インスタンスを生成する為にはbuild時にtypeで指定する必要があるっぽい
+      children.build(attrs.merge(type: type))
+    end
 end
