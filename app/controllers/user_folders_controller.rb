@@ -10,11 +10,6 @@ class UserFoldersController < ApplicationController
     @items = @q.result
   end
 
-  def root
-    @items = current_user.items.roots
-    render :show
-  end
-
   def new
     @folder = @parent_folder.build_folder
   end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
 
     resources :user_folders, only: %i(new create), path: 'folders'
-    resources :user_files, only: %i(new create edit update destroy show share), path: 'files' do
+    resources :user_files, only: %i(new create edit update destroy show), path: 'files' do
       member do
         get :download
         post :copy
