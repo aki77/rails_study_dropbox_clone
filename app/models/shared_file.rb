@@ -19,11 +19,13 @@ class SharedFile < ActiveRecord::Base
   belongs_to :file, class_name: 'UserFile', foreign_key: :user_item_id, counter_cache: true
   belongs_to :shared_user, class_name: 'User'
 
+  before_validation :email2shared_user
+
   validates :user_item_id, presence: true
   validates :email, presence: true
-  validate :email2shared_user
   validates :shared_user_id, presence: { message: '入力されたメールアドレスのユーザは存在しません。' }, uniqueness: { scope: :user_item_id }
 
+  # ユーザ重複や存在しないメールアドレスのエラーをemailフィールドに表示させたい
   after_validation -> { errors[:email].concat(errors[:shared_user_id]) if errors.include?(:shared_user_id) }
 
   private
